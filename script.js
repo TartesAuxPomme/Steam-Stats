@@ -1,22 +1,26 @@
 async function loadProfile(){
 
-let steamid = document.getElementById("steamid").value
-let apikey = document.getElementById("apikey").value
-let profile = document.getElementById("profile")
+const apiKey = document.getElementById("apikey").value
+const steamid = document.getElementById("steamid").value
+const profile = document.getElementById("profile")
 
 profile.innerHTML = "Loading..."
 
 try{
 
-let url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apikey}&steamids=${steamid}`
+const proxy = "https://api.allorigins.win/get?url="
 
-let response = await fetch(
-"https://api.allorigins.win/raw?url=" + encodeURIComponent(url)
+const url = encodeURIComponent(
+`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${apiKey}&steamids=${steamid}`
 )
 
-let data = await response.json()
+const res = await fetch(proxy + url)
 
-let player = data.response.players[0]
+const wrapped = await res.json()
+
+const data = JSON.parse(wrapped.contents)
+
+const player = data.response.players[0]
 
 profile.innerHTML = `
 <h2>${player.personaname}</h2>
@@ -26,7 +30,7 @@ profile.innerHTML = `
 }catch(err){
 
 console.error(err)
-profile.innerHTML = "Failed to load profile"
+profile.innerHTML = "Erreur chargement profil"
 
 }
 
