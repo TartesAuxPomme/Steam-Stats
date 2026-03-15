@@ -10,10 +10,11 @@ try{
 
 let url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apikey}&steamids=${steamid}`
 
-// proxy cors
-let proxy = "https://corsproxy.io/?"
+// proxy
+let response = await fetch(
+    "https://corsproxy.io/?" + encodeURIComponent(url)
+)
 
-let response = await fetch(proxy + encodeURIComponent(url))
 let data = await response.json()
 
 let player = data.response.players[0]
