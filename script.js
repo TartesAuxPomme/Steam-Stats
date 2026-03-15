@@ -10,7 +10,7 @@ try{
 
 let url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apikey}&steamids=${steamid}`
 
-// proxy
+// proxy CORS
 let response = await fetch(
     "https://corsproxy.io/?" + encodeURIComponent(url)
 )
@@ -27,6 +27,7 @@ profile.innerHTML = `
 }catch(err){
 
 profile.innerHTML = "Error loading profile"
+console.error(err)
 
 }
 
