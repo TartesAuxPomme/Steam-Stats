@@ -2,7 +2,6 @@ async function loadProfile(){
 
 let steamid = document.getElementById("steamid").value
 let apikey = document.getElementById("apikey").value
-
 let profile = document.getElementById("profile")
 
 profile.innerHTML = "Loading..."
@@ -11,7 +10,10 @@ try{
 
 let url = `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${apikey}&steamids=${steamid}`
 
-let response = await fetch(url)
+// proxy cors
+let proxy = "https://corsproxy.io/?"
+
+let response = await fetch(proxy + encodeURIComponent(url))
 let data = await response.json()
 
 let player = data.response.players[0]
